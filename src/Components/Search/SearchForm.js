@@ -1,18 +1,16 @@
 import React, { useState } from "react";
-import {Input, Button } from "antd";
 
-const { Search } = Input
 
-const SearchForm = (props) => {
+const SearchBar = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
 
-  const onSearch = (e) => {
+  const handleSearch = (e) => {
     e.preventDefault()
 
     if (searchTerm.trim() !== ''){
         setErrorMsg('')
-        props.onSearch(searchTerm)
+        props.handleSearch(searchTerm)
     } else {
         setErrorMsg('Search for an Artist, Song, or Album!')
     }
@@ -24,15 +22,20 @@ const SearchForm = (props) => {
   }
 
   return (
-        <div>
-            <Search onSearch={onSearch}
+        <form onSubmit={handleSearch}>
+            <label htmlFor='spotify-search'>
+                <span className='visually-hidden'>Spotify Search</span>
+            </label>
+            <button type="submit">magnifying glass</button>
+            <input
+                type='text' 
                 onChange={handleChange}
                 value={searchTerm}
                 placeholder="Search for an Artist, Song, or Album!"
                 enterButton="Search"
-            />
-        </div>
+                />
+        </form>
   );
 };
 
-export default SearchForm;
+export default SearchBar;

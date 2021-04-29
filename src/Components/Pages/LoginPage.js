@@ -1,10 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
 import Navigation from "./Navigation";
-import { Button } from 'antd'
 
 const LoginPage = () => {
+
   const {
     REACT_APP_SPOTIFY_CLIENT_ID,
     REACT_APP_SPOTIFY_AUTHORIZE_URL,
@@ -19,7 +18,7 @@ const LoginPage = () => {
     <div>
       <div className="login-page">
           <Navigation/>
-          <Button type='submit' onClick={handleLogin}>Login</Button>
+          <button type='submit' onClick={handleLogin}>Login</button>
       </div>
     </div>
   );
