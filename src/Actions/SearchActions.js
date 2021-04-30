@@ -6,7 +6,7 @@ import {
 } from './ActionTypes'
 import { get } from '../Utility/functions'
 
-const searchURL = (query) => { return `https://api.spotify.com/v1/search?query=${encodeURIComponent(query)}&type=album,artist,playlist,track`}
+const searchURL = (query) => { return `https://api.spotify.com/v1/search?query=${encodeURIComponent(query)}&type=album,artist,playlist,track&limit=6`}
 
 const fetchAlbums = (albums) => {
     return {

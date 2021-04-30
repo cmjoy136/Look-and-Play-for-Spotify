@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import Navigation from "./Navigation";
+import Navigation from "../Navigation/Navigation";
 
 const LoginPage = () => {
 
@@ -17,8 +17,9 @@ const LoginPage = () => {
   return (
     <div>
       <div className="login-page">
-          <Navigation/>
+          <h1>Spotify Search and Play</h1>
           <button type='submit' onClick={handleLogin}>Login</button>
+          {/* DIV EXPLAINING APP AND FUNCTIONALITY */}
       </div>
     </div>
   );

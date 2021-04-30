@@ -52,12 +52,13 @@ class App extends Component {
             )}
           />
           <Route
-            path="/Homepage"
+            path="/home"
             render={(props) => (
               <Homepage {...props} isValidSession={this.isValidSession} />
             )}
           />
           <Route render={() => <ErrorPage/>} />
+          {/* Route for profile */}
         </Switch>
       </div>
     );

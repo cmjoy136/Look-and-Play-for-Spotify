@@ -24,9 +24,9 @@ const SearchBar = (props) => {
   return (
         <form onSubmit={handleSearch}>
             <label htmlFor='spotify-search'>
-                <span className='visually-hidden'>Spotify Search</span>
+                <span className='hide'>Spotify Search</span>
             </label>
-            <button type="submit">magnifying glass</button>
+            <button type="submit"><i className="fa fa-search"></i></button>
             <input
                 type='text' 
                 onChange={handleChange}

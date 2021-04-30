@@ -3,10 +3,12 @@ import { connect } from 'react-redux'
 import SearchForm from '../Search/SearchForm'
 import SearchResults from '../Search/SearchResults'
 import { getSearchResult } from '../../Actions/SearchActions'
+import Navigation from '../Navigation/Navigation'
 
 
 const Homepage = (props) => {
-  const { isValidSession, history} = props
+  const { isValidSession, history, albums, artists, playlists, tracks} = props
+  const results = {albums, artists, playlists, tracks}
   
   const handleSearch = (searchTerm) => {
     if(isValidSession()) {
@@ -18,14 +20,15 @@ const Homepage = (props) => {
       })
     }
   }
-
-  const {albums, artists, playlists, tracks} = props
-  const results = {albums, artists, playlists, tracks}
-
+ 
+  const handleClick = (page) => {
+    history.push(page);
+  };
 
   return(
-    <div>
-      <div className="homepage">
+    <div className="homepage">
+      <Navigation handleClick={handleClick}/>
+      <div className="results-container">
         <SearchForm handleSearch={handleSearch}/>
         <SearchResults
           results={results}

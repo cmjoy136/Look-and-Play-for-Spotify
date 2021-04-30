@@ -13,7 +13,7 @@ const RedirectPage = (props) =>{
             localStorage.setItem('params', JSON.stringify(access_token))
             localStorage.setItem('expireTime', expireTime)
             setExpireTime(expireTime)
-            history.push('/homepage')
+            history.push('/home')
         } catch(err) {
             history.push('/')
             console.log(err)
