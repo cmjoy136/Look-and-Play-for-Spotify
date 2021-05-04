@@ -1,66 +1,111 @@
+:root {
+    --spacing: 24px;
+    --mincolwidth: 180px;
+  }
+
 body {
-    background-color: #0d0c0a;
-    color: white;
-    font-family: 'Poppins', sans-serif;
+  background-color: #0d0c0a;
+  color: white;
+  font-family: "Poppins", sans-serif;
 }
 
 button {
-    display: inline-block;
-    padding: .35em 1.2em;
-    box-sizing: border-box;
-    border: solid transparent;
-    font-family: inherit;
-    color: white;
-    background-color: #03C04A;
+  display: inline-block;
+  padding: 0.35em 1.2em;
+  box-sizing: border-box;
+  border: solid transparent;
+  font-family: inherit;
+  color: white;
+  background-color: #03c04a;
 }
 
 button:hover {
-    background-color: #29f678;
+  background-color: #29f678;
 }
 
 .login-page {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .navigation {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .hide {
-    display: none;
+  display: none;
 }
 
 input {
-    font-size: 24px;
-    outline: none;
-    vertical-align: middle;
-    box-sizing: border-box;
+  font-size: 24px;
+  outline: none;
+  vertical-align: middle;
+  box-sizing: border-box;
 }
-input:focus{
-    border: 3px solid #555;
+input:focus {
+  border: 3px solid #555;
 }
 
-.albums{
-    display: flex;
+.search-results {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--mincolwidth), 1fr));
+  gap: 15px;
+}
+
+.tracks-results {
+  grid-column: 2/-1;
+  width: 80%;
+}
+
+.albums-results{
+
+    grid-column: 1/-1;
+}
+
+.albums {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--mincolwidth), 1fr));
+  gap: 15px;
+  grid-column: 1/-1;
 }
 
 .card {
-    background-color: rgb(54, 53, 53);
-    display: block;
-    margin: 10px;
+  background-color: rgb(54, 53, 53);
+  box-sizing: border-box;
+  position: relative;
+  isolation: isolate;
+  padding: 10px;
+  width: 100%;
 }
 
 .card img {
-    width: 200px;
-    height: 200px;
-}
-.card h5 {
-    margin: 0px;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
 }
 
+.song-card {
+  display: flex;
+  grid-template-columns: 3;
+  width: 100%;
+  font-size: 14px;
+  margin: 5px;
+}
+
+.song-card .img-div {
+  float: left;
+}
+.song-card .card-body {
+  float: left;
+}
+
+.song-card img {
+  height: 50px;
+  width: 50px;
+  margin-right: 10px;
+}

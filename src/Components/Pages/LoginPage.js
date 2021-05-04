@@ -1,9 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import Navigation from "../Navigation/Navigation";
 
 const LoginPage = () => {
-
   const {
     REACT_APP_SPOTIFY_CLIENT_ID,
     REACT_APP_SPOTIFY_AUTHORIZE_URL,

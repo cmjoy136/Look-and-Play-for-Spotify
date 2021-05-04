@@ -1,13 +1,9 @@
 import { FETCH_TRACKS } from '../Actions/ActionTypes'
 
-const initialState = {
-    tracks: {}
-}
-
-const trackReducer = (state = initialState, action) => {
+const trackReducer = (state = {}, action) => {
     switch (action.type) {
         case FETCH_TRACKS:
-            return {...state, tracks: action.payload}
+            return action.tracks
         default:
             return state
     }

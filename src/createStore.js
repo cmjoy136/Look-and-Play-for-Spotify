@@ -5,6 +5,8 @@ import artistReducer from './Reducers/artistReducer'
 import playlistReducer from './Reducers/playlistReducer'
 import trackReducer from './Reducers/trackReducer'
 
+const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
+
 const store = createStore(
     combineReducers({
         albums: albumReducer,
@@ -13,7 +15,7 @@ const store = createStore(
         tracks: trackReducer
 
     }),
-    compose(applyMiddleware(thunk))
+    composeEnhancers(applyMiddleware(thunk))
 )
 
 export default store

@@ -3,10 +3,9 @@ import Card from "./Card";
 
 const AlbumList = ({ albums }) => {
   return (
-    <div>
+    <>
+      <h2>Albums</h2>
       {Object.keys(albums).length > 0 && (
-        <div className="albums-list">
-          <h2>Albums</h2>
           <div className="albums">
           {albums.items.map((album, index) => {
               return (
@@ -19,9 +18,8 @@ const AlbumList = ({ albums }) => {
                   );
                 })}
             </div>
-        </div>
       )}
-    </div>
+    </>
   );
 };
 
