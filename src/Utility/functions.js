@@ -35,3 +35,13 @@ export const post = async(url, params) => {
     const  result = await axios.post(url, params)
     return result.data
 }
+
+export const msToDuration = (milliseconds) => {
+    let sec = milliseconds/1000
+    let min = parseInt(sec/60, 10)
+    sec = Math.floor(sec)%60
+    if(sec.toString().length === 1) {
+      sec = '0'+sec
+    }
+    return min + ":" + sec
+}

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {msToDuration} from "../../Utility/functions";
 import Card from "./Card";
 
 const TrackList = ({ tracks }) => {
@@ -17,6 +18,7 @@ const TrackList = ({ tracks }) => {
                 imgSrc={track.album.images[2].url}
                 name={track.name}
                 artist={track.artists[0].name}
+                time={msToDuration(track.duration_ms)}
               />
             );
           })}

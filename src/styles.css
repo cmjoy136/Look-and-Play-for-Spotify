@@ -58,12 +58,10 @@ input:focus {
 }
 
 .tracks-results {
-  grid-column: 2/-1;
-  width: 80%;
+  grid-column: 3/-1;
 }
 
 .albums-results{
-
     grid-column: 1/-1;
 }
 
@@ -75,7 +73,7 @@ input:focus {
 }
 
 .card {
-  background-color: rgb(54, 53, 53);
+  background-color: rgb(41, 41, 41);
   box-sizing: border-box;
   position: relative;
   isolation: isolate;
@@ -90,22 +88,43 @@ input:focus {
 }
 
 .song-card {
-  display: flex;
-  grid-template-columns: 3;
+  display: grid;
+  box-sizing: border-box;
+  grid-template-columns: [first] 50px [mid] 4fr [last] minmax(120px, 1fr);
+  gap: 15px;
   width: 100%;
   font-size: 14px;
+  padding: 5px;
   margin: 5px;
 }
 
-.song-card .img-div {
-  float: left;
-}
-.song-card .card-body {
-  float: left;
+.song-card:hover {
+    background-color: #a9a9a9;
 }
 
+.song-card .card-body {
+  display: grid;
+  grid-template: "title title"
+                 "artist" /auto 1fr;
+}
+
+.song-card .card-title {
+    grid-area: "title";
+}
+
+.song-card .card-artist {
+    grid-area: "artist";
+}
+
+.song-card .card-footer {
+    grid-column: last;
+    justify-content: end;
+}
 .song-card img {
+  grid-area: "image";
   height: 50px;
   width: 50px;
   margin-right: 10px;
 }
+
+
