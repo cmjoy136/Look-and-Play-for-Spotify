@@ -11,6 +11,11 @@ export const getParamValues = (url) => {
     }, {});
 };
 
+export const getAccessToken = () =>{
+  const params = JSON.parse(localStorage.getItem("params"))
+  return params.access_token
+}
+
 export const setAuthHeader = () => {
   try {
     const params = JSON.parse(localStorage.getItem("params"));
@@ -18,6 +23,7 @@ export const setAuthHeader = () => {
       axios.defaults.headers.common[
         "Authorization"
       ] = `Bearer ${params.access_token}`;
+
     }
   } catch (err) {
     console.log("Authorization Error", err);
@@ -30,17 +36,7 @@ export const get = async(url, params) => {
     return result.data
 }
 
-export const post = async(url, params) => {
-    setAuthHeader()
-    const  result = await axios.post(url, params)
-    return result.data
-}
-
-export const put = async(url, params) => {
-  setAuthHeader()
-  const  result = await axios.put(url, params)
-  return result.data
-}
+//Removing axios post and put due to conflicts with spotify api
 
 //required due to spotify track object using milliseconds
 //for song duration

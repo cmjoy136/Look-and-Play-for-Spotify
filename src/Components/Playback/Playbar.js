@@ -5,7 +5,7 @@ const Playbar = () => {
     return(
         <div className="playbar">
             <div className="song-info">
-                <img/>
+                <img alt='nothing here yet'/>
                 <div className="song-title-artist">
                     <h4>Title</h4>
                     <h4>Artist</h4>

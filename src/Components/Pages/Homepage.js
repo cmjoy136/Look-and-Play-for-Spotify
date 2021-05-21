@@ -2,14 +2,13 @@ import React from 'react'
 import { connect } from 'react-redux'
 import SearchForm from '../Search/SearchForm'
 import SearchResults from '../Search/SearchResults'
-import { playTrack } from "../../Actions/PlayerActions"
 import { getSearchResult } from '../../Actions/SearchActions'
 import Navigation from '../Navigation/Navigation'
 import Playbar from '../Playback/Playbar'
 
 
 const Homepage = (props) => {
-  const { isValidSession, history, albums, artists, playlists, tracks} = props
+  const { isValidSession, history, albums, artists, playlists, tracks, playTrack} = props
   const results = {albums, artists, playlists, tracks}
   
   const handleSearch = (searchTerm) => {
@@ -30,13 +29,13 @@ const Homepage = (props) => {
   const handlePlay = (trackURI) => {
     if(isValidSession()) {
       try{
-      props.dispatch(playTrack(trackURI))
+      playTrack(trackURI)
       } catch(err){
         console.log(err)
       }
     } 
   }
-  console.log(handleClick)
+
   return(
     <div className="homepage">
       <Navigation handleClick={handleClick}/>

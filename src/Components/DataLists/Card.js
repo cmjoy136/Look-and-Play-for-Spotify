@@ -1,6 +1,4 @@
 import React from "react";
-import PlayButton from "../Playback/PlayButton"
-import msToDuration from "../../Utility/functions";
 
 const Card = (props) => {
   const { index, imgSrc, name, releaseDate, artist, time, trackURI, handlePlay } = props;
