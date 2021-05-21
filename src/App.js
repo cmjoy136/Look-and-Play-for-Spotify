@@ -8,6 +8,7 @@ import RedirectPage from "./Components/Pages/RedirectPage";
 class App extends Component {
   state = {
     expireTime: "0",
+    isPlaying: null,
   };
 
   componentDidMount() {

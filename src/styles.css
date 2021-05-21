@@ -9,6 +9,15 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
+.project-logo {
+    margin-bottom: 10px;
+}
+
+.project-logo img {
+    max-width: 250px;
+    max-height: 250px;
+}
+
 button {
   display: inline-block;
   padding: 0.35em 1.2em;
@@ -58,7 +67,7 @@ input:focus {
 }
 
 .tracks-results {
-  grid-column: 3/-1;
+  grid-column: 1/-3;
 }
 
 .albums-results{
@@ -127,4 +136,18 @@ input:focus {
   margin-right: 10px;
 }
 
-
+.playbar{
+    position: fixed;
+    display: flex;
+    justify-content: space-evenly;
+    bottom: 0;
+    width: 100%;
+    height: 70px;
+    background-color: #0d0c0a;
+    border-top: 3px solid white;
+    padding: 10px;
+}
+.song-info{
+  display: flex;
+  align-items: center;
+}

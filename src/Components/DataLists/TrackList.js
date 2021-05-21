@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import {msToDuration} from "../../Utility/functions";
 import Card from "./Card";
 
-const TrackList = ({ tracks }) => {
+const TrackList = (props) => {
+  const { tracks, handlePlay} = props
   const [isSong, setIsSong] = useState(true);
-
   return (
     <>
       <h2>Songs</h2>
@@ -19,6 +19,8 @@ const TrackList = ({ tracks }) => {
                 name={track.name}
                 artist={track.artists[0].name}
                 time={msToDuration(track.duration_ms)}
+                trackURI={track.uri}
+                handlePlay={handlePlay}
               />
             );
           })}

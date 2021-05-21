@@ -5,7 +5,7 @@ import AlbumList from "../DataLists/AlbumList";
 import TrackList from "../DataLists/TrackList";
 
 const SearchResults = (props) => {
-  const { isValidSession, results } = props;
+  const { isValidSession, results} = props;
   const { albums, artists, playlists, tracks } = results;
 
   if (!isValidSession) {
@@ -19,10 +19,11 @@ const SearchResults = (props) => {
     />;
   }
 
+
   return (
     <div className="search-results">
       <section className="tracks-results">
-        {!_.isEmpty(tracks) && <TrackList tracks={tracks} />}
+        {!_.isEmpty(tracks) && <TrackList tracks={tracks} handlePlay={props.handlePlay} />}
       </section>
       <section className="albums-results">
         {!_.isEmpty(albums) && <AlbumList albums={albums} />}

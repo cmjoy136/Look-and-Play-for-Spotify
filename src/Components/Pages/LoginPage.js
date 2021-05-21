@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import spotifyLogo from "../../Assets/Spotify_Logo_RGB_Green.png"
 
 const LoginPage = () => {
   const {
@@ -15,7 +16,12 @@ const LoginPage = () => {
   return (
     <div>
       <div className="login-page">
-          <h1>Spotify Search and Play</h1>
+        <div className="project-title">
+          <h1>Look and Play for</h1>
+        </div>
+        <div className="project-logo">
+          <img src={spotifyLogo} alt="Spotify Official Logo"/>
+        </div>
           <button type='submit' onClick={handleLogin}>Login</button>
           {/* DIV EXPLAINING APP AND FUNCTIONALITY */}
       </div>

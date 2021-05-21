@@ -2,8 +2,10 @@ import React from 'react'
 import { connect } from 'react-redux'
 import SearchForm from '../Search/SearchForm'
 import SearchResults from '../Search/SearchResults'
+import { playTrack } from "../../Actions/PlayerActions"
 import { getSearchResult } from '../../Actions/SearchActions'
 import Navigation from '../Navigation/Navigation'
+import Playbar from '../Playback/Playbar'
 
 
 const Homepage = (props) => {
@@ -25,6 +27,16 @@ const Homepage = (props) => {
     history.push(page);
   };
 
+  const handlePlay = (trackURI) => {
+    if(isValidSession()) {
+      try{
+      props.dispatch(playTrack(trackURI))
+      } catch(err){
+        console.log(err)
+      }
+    } 
+  }
+  console.log(handleClick)
   return(
     <div className="homepage">
       <Navigation handleClick={handleClick}/>
@@ -33,8 +45,10 @@ const Homepage = (props) => {
         <SearchResults
           results={results}
           isValidSession={isValidSession}
+          handlePlay={handlePlay}
         />
       </div>
+      <Playbar/>
     </div>
   )
 }
@@ -44,7 +58,8 @@ const mapStateToProps = (state) => {
     albums: state.albums,
     artists: state.artists,
     playlists: state.playlists,
-    tracks: state.tracks
+    tracks: state.tracks,
+    player: state.player
   }
 }
 

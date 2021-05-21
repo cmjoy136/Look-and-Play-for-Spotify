@@ -5,5 +5,11 @@ export const FETCH_PLAYLISTS = "FETCH_PLAYLISTS"
 export const FETCH_TRACKS = "FETCH_TRACKS"
 
 // PLAYER ACTIONS
+export const PLAY_TRACK ="PLAY_TRACK"
+export const PAUSE_TRACK = "PAUSE_TRACK"
+export const NEXT_TRACK = "NEXT_TRACK"
+export const PREVIOUS_TRACK = "PREVIOUS_TRACK"
+export const SHUFFLE_TRACKS = "SHUFFLE_TRACKS"
+export const REPEAT_CYCLE = "REPEAT_CYCLE"
 
 

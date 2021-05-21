@@ -36,6 +36,14 @@ export const post = async(url, params) => {
     return result.data
 }
 
+export const put = async(url, params) => {
+  setAuthHeader()
+  const  result = await axios.put(url, params)
+  return result.data
+}
+
+//required due to spotify track object using milliseconds
+//for song duration
 export const msToDuration = (milliseconds) => {
     let sec = milliseconds/1000
     let min = parseInt(sec/60, 10)
