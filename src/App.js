@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
 import { getAccessToken } from "./Utility/functions";
-import ErrorPage from "./Components/Pages/ErrorPage";
-import Homepage from "./Components/Pages/Homepage";
-import LoginPage from "./Components/Pages/LoginPage";
-import RedirectPage from "./Components/Pages/RedirectPage";
+import ErrorPage from "./Containers/ErrorPage";
+import Homepage from "./Containers/Homepage";
+import LoginPage from "./Containers/LoginPage";
+import RedirectPage from "./Containers/RedirectPage";
 
 class App extends Component {
   state = {
@@ -13,6 +13,8 @@ class App extends Component {
     token: undefined,
     deviceID: undefined,
   };
+  playerEndpoint = "https://api.spotify.com/v1/me/player";
+  playEndpoint = this.playerEndpoint + "/play?";
   scopes =
     "streaming user-read-email user-read-private user-read-playback-state user-modify-playback-state user-read-currently-playing";
 
@@ -105,9 +107,7 @@ class App extends Component {
   };
 
   playTrack = (spotify_URI) => {
-    const playerEndpoint = "https://api.spotify.com/v1/me/player";
-    const playEndpoint = playerEndpoint + "/play?";
-    fetch(playEndpoint + "device_id=" + this.state.deviceID, {
+    fetch(this.playEndpoint + "device_id=" + this.state.deviceID, {
       method: "PUT",
       body: JSON.stringify({ uris: [spotify_URI] }),
       headers: {
@@ -129,6 +129,16 @@ class App extends Component {
         console.log(err);
       });
   };
+
+  pauseTrack = () => {
+    fetch(this.playerEndpoint + '/pause', {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${getAccessToken()}`,
+        "Content-Type": "application/json"
+      }
+    })
+  }
 
   render() {
     return (
@@ -158,6 +168,7 @@ class App extends Component {
                 {...props}
                 isValidSession={this.isValidSession}
                 playTrack={this.playTrack}
+                pauseTrack={this.pauseTrack}
               />
             )}
           />

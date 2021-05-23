@@ -1,14 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import SearchForm from '../Search/SearchForm'
-import SearchResults from '../Search/SearchResults'
-import { getSearchResult } from '../../Actions/SearchActions'
-import Navigation from '../Navigation/Navigation'
-import Playbar from '../Playback/Playbar'
-
+import SearchForm from '../Components/Search/SearchForm'
+import SearchResults from '../Components/Search/SearchResults'
+import { getSearchResult } from '../Actions/SearchActions'
+import Navigation from '../Components/Navigation/Navigation'
+import Playbar from '../Components/Playback/Playbar'
 
 const Homepage = (props) => {
-  const { isValidSession, history, albums, artists, playlists, tracks, playTrack} = props
+  const { isValidSession, history, playTrack, pauseTrack, albums, artists, playlists, tracks} = props
   const results = {albums, artists, playlists, tracks}
   
   const handleSearch = (searchTerm) => {
@@ -36,9 +35,19 @@ const Homepage = (props) => {
     } 
   }
 
+  const handlePause = () =>{
+    if(isValidSession()) {
+      try{
+        pauseTrack()
+      } catch(err){
+        console.log(err)
+      }
+    }
+  }
+
   return(
     <div className="homepage">
-      <Navigation handleClick={handleClick}/>
+      <Navigation handleClick={handlePause}/>
       <div className="results-container">
         <SearchForm handleSearch={handleSearch}/>
         <SearchResults
@@ -47,17 +56,17 @@ const Homepage = (props) => {
           handlePlay={handlePlay}
         />
       </div>
-      <Playbar/>
+      <Playbar handlePlay={handlePlay}/>
     </div>
   )
 }
 
 const mapStateToProps = (state) => {
   return {
-    albums: state.albums,
-    artists: state.artists,
-    playlists: state.playlists,
-    tracks: state.tracks,
+    albums: state.music.albums,
+    artists: state.music.artists,
+    playlists: state.music.playlists,
+    tracks: state.music.tracks,
     player: state.player
   }
 }

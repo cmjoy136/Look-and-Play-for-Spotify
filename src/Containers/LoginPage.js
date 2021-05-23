@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import spotifyLogo from "../../Assets/Spotify_Logo_RGB_Green.png"
+import spotifyLogo from "../Assets/Spotify_Logo_RGB_Green.png"
 
 const LoginPage = (props) => {
 

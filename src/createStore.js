@@ -1,18 +1,14 @@
 import { createStore, combineReducers, applyMiddleware, compose} from 'redux'
 import thunk from 'redux-thunk'
-import albumReducer from './Reducers/albumReducer'
-import artistReducer from './Reducers/artistReducer'
-import playlistReducer from './Reducers/playlistReducer'
-import trackReducer from './Reducers/trackReducer'
+import musicReducer from './Reducers/musicReducer'
+import playerReducer from './Reducers/playerReducer'
 
 const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
 
 const store = createStore(
     combineReducers({
-        albums: albumReducer,
-        artists: artistReducer,
-        playlists: playlistReducer,
-        tracks: trackReducer,
+        music: musicReducer,
+        player: playerReducer,
 
     }),
     composeEnhancers(applyMiddleware(thunk))

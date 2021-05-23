@@ -1,13 +1,13 @@
 import React from 'react'
 
 
-const PlayButton = (props) => {
+const MusicControlButton = (props) => {
     const {handlePlay, trackURI} = props
     return(
         <div className="play-button">
-            <button onClick={() => handlePlay(trackURI)}>Play</button>
+            <button onClick={() => handleClick()}>Play</button>
         </div>
     )
 }
 
-export default PlayButton
+export default MusicControlButton

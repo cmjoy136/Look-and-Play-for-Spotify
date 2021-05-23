@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
-import { getParamValues } from '../../Utility/functions'
+import { getParamValues } from '../Utility/functions'
 
 const RedirectPage = (props) =>{
     const history = useHistory()

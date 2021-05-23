@@ -7,7 +7,7 @@ const Card = (props) => {
     <div key={index} className={props.isSong ? "song-card" : "card"}>
       <div className="card-image">
         <img src={imgSrc} alt="album or song cover" />
-        <button onClick={()=> handlePlay(trackURI)}>Play</button>
+        <button className="card-button" onClick={()=> handlePlay(trackURI)}><i className="fas fa-play"></i></button>
       </div>
       <div className="card-body">
         <div className="card-title">{name}</div>
