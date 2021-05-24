@@ -3,7 +3,7 @@ import {msToDuration} from "../../Utility/functions";
 import Card from "./Card";
 
 const TrackList = (props) => {
-  const { tracks, handlePlay} = props
+  const { tracks} = props
   const [isSong, setIsSong] = useState(true);
   return (
     <>
@@ -19,8 +19,7 @@ const TrackList = (props) => {
                 name={track.name}
                 artist={track.artists[0].name}
                 time={msToDuration(track.duration_ms)}
-                trackURI={track.uri}
-                handlePlay={handlePlay}
+                spotifyURI={track.uri}
               />
             );
           })}

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import {FiSearch} from 'react-icons/fi'
 
 const SearchBar = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -26,13 +26,13 @@ const SearchBar = (props) => {
             <label htmlFor='spotify-search'>
                 <span className='hide'>Spotify Search</span>
             </label>
-            <button type="submit"><i className="fa fa-search"></i></button>
+            <button type="submit"><FiSearch/></button>
             <input
                 type='text' 
                 onChange={handleChange}
                 value={searchTerm}
                 placeholder="Search for an Artist, Song, or Album!"
-                enterButton="Search"
+                enterbutton="Search"
                 />
         </form>
   );

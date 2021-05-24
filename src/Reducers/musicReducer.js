@@ -1,6 +1,12 @@
 import {FETCH_ALBUMS, FETCH_ARTISTS, FETCH_PLAYLISTS, FETCH_TRACKS} from "../Actions/ActionTypes"
 
-const musicReducer = (state= {albums: [], artists: [], playlists: [], tracks:[]}, action) => {
+const initialState = {
+    albums: [],
+    artists: [],
+    playlists: [],
+    tracks: []
+}
+const musicReducer = (state= initialState, action) => {
     switch(action.type) {
         case FETCH_ALBUMS:
             console.log(action)

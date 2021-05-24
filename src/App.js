@@ -1,5 +1,7 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { Route, Switch } from "react-router-dom";
+import { getDeviceID } from "./Actions/AuthActions";
 import { getAccessToken } from "./Utility/functions";
 import ErrorPage from "./Containers/ErrorPage";
 import Homepage from "./Containers/Homepage";
@@ -7,18 +9,8 @@ import LoginPage from "./Containers/LoginPage";
 import RedirectPage from "./Containers/RedirectPage";
 
 class App extends Component {
-  state = {
-    expireTime: "0",
-    isPlaying: null,
-    token: undefined,
-    deviceID: undefined,
-  };
-  playerEndpoint = "https://api.spotify.com/v1/me/player";
-  playEndpoint = this.playerEndpoint + "/play?";
   scopes =
     "streaming user-read-email user-read-private user-read-playback-state user-modify-playback-state user-read-currently-playing";
-
-  playerCheckInterval = null;
 
   componentDidMount() {
     let expireTime;
@@ -41,59 +33,10 @@ class App extends Component {
     const currentTime = new Date().getTime();
     const expireTime = this.state.expireTime;
     const validSession = currentTime < expireTime;
-    this.playerCheckInterval = setInterval(() => this.checkForPlayer(), 1000);
     return validSession;
   };
 
-  //check for SDK player
-  checkForPlayer = () => {
-    this.player = new window.Spotify.Player({
-      name: "Look and Play for Spotify Player",
-      getOAuthToken: (cb) => {
-        cb(getAccessToken());
-      },
-      volume: 1.0,
-    });
-    this.createEventHandlers();
-
-    if (window.Spotify !== null) {
-      clearInterval(this.playerCheckInterval);
-    }
-
-    this.player.connect();
-  };
-
-  createEventHandlers() {
-    //Error handling
-    this.player.addListener("initialization_error", ({ message }) => {
-      console.error(message);
-    });
-    this.player.addListener("authentication_error", ({ message }) => {
-      console.error(message);
-    });
-    this.player.addListener("account_error", ({ message }) => {
-      console.error(message);
-    });
-    this.player.addListener("playback_error", ({ message }) => {
-      console.error(message);
-    });
-
-    //Playback status updates
-    this.player.addListener("player_state_changed", (state) => {
-      console.log(state);
-    });
-
-    //Ready
-    this.player.addListener("ready", ({ device_id }) => {
-      this.setState({ deviceID: device_id });
-      console.log("Ready with Device ID", device_id);
-    });
-
-    //Not Ready
-    this.player.addListener("not_ready", ({ device_id }) => {
-      console.log("Device ID is offline", device_id);
-    });
-  }
+ 
 
   handleLogin = () => {
     window.location = `${
@@ -105,40 +48,6 @@ class App extends Component {
     )}`;
     console.log(window.location);
   };
-
-  playTrack = (spotify_URI) => {
-    fetch(this.playEndpoint + "device_id=" + this.state.deviceID, {
-      method: "PUT",
-      body: JSON.stringify({ uris: [spotify_URI] }),
-      headers: {
-        Authorization: `Bearer ${getAccessToken()}`,
-        "Content-Type": "application/json",
-      },
-    })
-      .then((e) => {
-        if (e.status === 403) {
-          console.log("no premium");
-        } else {
-          console.log("now playing");
-          this.setState({
-            isPlaying: true,
-          });
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  pauseTrack = () => {
-    fetch(this.playerEndpoint + '/pause', {
-      method: "PUT",
-      headers: {
-        Authorization: `Bearer ${getAccessToken()}`,
-        "Content-Type": "application/json"
-      }
-    })
-  }
 
   render() {
     return (
@@ -169,6 +78,7 @@ class App extends Component {
                 isValidSession={this.isValidSession}
                 playTrack={this.playTrack}
                 pauseTrack={this.pauseTrack}
+                playbackInfo={this.getCurrentPlaybackInfo}
               />
             )}
           />
@@ -180,4 +90,11 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return { deviceID: state.auth.deviceID };
+};
+const mapDispatchToProps = {
+  getDeviceID,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

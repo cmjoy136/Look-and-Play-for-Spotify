@@ -19,8 +19,8 @@ body {
 }
 
 button {
-  display: inline-block;
-  padding: 0.35em 1.2em;
+  text-align: center;
+  padding: 0.3em 1em;
   box-sizing: border-box;
   border: solid transparent;
   font-family: inherit;

@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import _ from "lodash";
 import { Redirect } from "react-router-dom";
 import AlbumList from "../DataLists/AlbumList";
+import ArtistList from "../DataLists/ArtistList"
 import TrackList from "../DataLists/TrackList";
 
 const SearchResults = (props) => {
@@ -26,9 +27,11 @@ const SearchResults = (props) => {
         {!_.isEmpty(tracks) && <TrackList tracks={tracks} handlePlay={props.handlePlay} />}
       </section>
       <section className="albums-results">
-        {!_.isEmpty(albums) && <AlbumList albums={albums} />}
+        {!_.isEmpty(albums) && <AlbumList albums={albums} handlePlay={props.handlePlay} />}
       </section>
-      <section className="artists-results"></section>
+      <section className="artists-results">
+        {!_.isEmpty(artists)  && <ArtistList artists={artists} handlePlay={props.handlePlay}/>}
+      </section>
       <section className="playlists-results"></section>
     </div>
   );

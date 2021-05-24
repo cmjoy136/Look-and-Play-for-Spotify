@@ -1,5 +1,6 @@
 import { createStore, combineReducers, applyMiddleware, compose} from 'redux'
 import thunk from 'redux-thunk'
+import authReducer from './Reducers/authReducer'
 import musicReducer from './Reducers/musicReducer'
 import playerReducer from './Reducers/playerReducer'
 
@@ -7,6 +8,7 @@ const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOO
 
 const store = createStore(
     combineReducers({
+        auth: authReducer,
         music: musicReducer,
         player: playerReducer,
 

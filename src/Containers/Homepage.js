@@ -1,65 +1,66 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import SearchForm from '../Components/Search/SearchForm'
-import SearchResults from '../Components/Search/SearchResults'
-import { getSearchResult } from '../Actions/SearchActions'
-import Navigation from '../Components/Navigation/Navigation'
-import Playbar from '../Components/Playback/Playbar'
+import React from "react";
+import { connect } from "react-redux";
+import SearchForm from "../Components/Search/SearchForm";
+import SearchResults from "../Components/Search/SearchResults";
+import { getSearchResult } from "../Actions/SearchActions";
+import Navigation from "../Components/Navigation/Navigation";
+import Playbar from "../Components/Playback/Playbar";
 
 const Homepage = (props) => {
-  const { isValidSession, history, playTrack, pauseTrack, albums, artists, playlists, tracks} = props
-  const results = {albums, artists, playlists, tracks}
-  
+  const {
+    isValidSession,
+    history,
+    playTrack,
+    pauseTrack,
+    albums,
+    artists,
+    playlists,
+    tracks,
+  } = props;
+  const results = { albums, artists, playlists, tracks };
+
   const handleSearch = (searchTerm) => {
-    if(isValidSession()) {
-      props.dispatch(getSearchResult(searchTerm))
-    } else{
+    if (isValidSession()) {
+      props.dispatch(getSearchResult(searchTerm));
+    } else {
       history.push({
         pathname: "/",
-        session_expired: true
-      })
+        session_expired: true,
+      });
     }
-  }
- 
+  };
+
   const handleClick = (page) => {
     history.push(page);
   };
 
   const handlePlay = (trackURI) => {
-    if(isValidSession()) {
-      try{
-      playTrack(trackURI)
-      } catch(err){
-        console.log(err)
-      }
-    } 
-  }
-
-  const handlePause = () =>{
-    if(isValidSession()) {
-      try{
-        pauseTrack()
-      } catch(err){
-        console.log(err)
+    if (isValidSession()) {
+      try {
+        playTrack(trackURI);
+      } catch (err) {
+        console.log(err);
       }
     }
-  }
+  };
 
-  return(
+
+
+  return (
     <div className="homepage">
-      <Navigation handleClick={handlePause}/>
+      <Navigation handleClick={handleClick} />
       <div className="results-container">
-        <SearchForm handleSearch={handleSearch}/>
+        <SearchForm handleSearch={handleSearch} />
         <SearchResults
           results={results}
           isValidSession={isValidSession}
           handlePlay={handlePlay}
         />
       </div>
-      <Playbar handlePlay={handlePlay}/>
+      <Playbar handlePlay={handlePlay} playbackInfo={props.getPlaybackInfo} />
     </div>
-  )
-}
+  );
+};
 
 const mapStateToProps = (state) => {
   return {
@@ -67,8 +68,8 @@ const mapStateToProps = (state) => {
     artists: state.music.artists,
     playlists: state.music.playlists,
     tracks: state.music.tracks,
-    player: state.player
-  }
-}
+    player: state.player,
+  };
+};
 
-export default connect(mapStateToProps)(Homepage)
+export default connect(mapStateToProps)(Homepage);
