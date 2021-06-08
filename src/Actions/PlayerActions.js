@@ -1,5 +1,5 @@
 import { PLAYBACK_ON, PAUSE_TRACK, GET_TRACK_INFO } from "./ActionTypes";
-import { get, uriParser } from "../Utility/functions";
+import { uriParser } from "../Utility/functions";
 import { authHeader } from "../Utility/constants";
 export const playerEndpoint = "https://api.spotify.com/v1/me/player";
 export const playEndpoint = playerEndpoint + "/play?";
@@ -10,7 +10,7 @@ export const currentPlayingEndpoint =
 export const getCurrentPlaybackInfo = () => {
   return async (dispatch) => {
     try {
-      await fetch(currentPlayingEndpoint, {
+      fetch(currentPlayingEndpoint, {
         method: "GET",
         headers: authHeader,
       })
@@ -23,7 +23,7 @@ export const getCurrentPlaybackInfo = () => {
           console.log(data);
           return dispatch({
             type: GET_TRACK_INFO,
-            payload: data
+            payload: data,
           });
         });
     } catch (err) {
@@ -45,7 +45,6 @@ export const playTrack = (spotify_URI, deviceID) => {
         } else {
           console.log("now playing");
           dispatch({ type: PLAYBACK_ON, isPlaying: true, paused: false });
-          getCurrentPlaybackInfo()
         }
       });
     } catch (err) {
@@ -82,6 +81,23 @@ export const pauseTrack = () => {
       } else {
         console.log("pausing");
         dispatch({ type: PAUSE_TRACK, isPlaying: false, paused: true });
+      }
+    });
+  };
+};
+
+export const nextTrack = (deviceID) => {
+  return async (dispatch) => {
+    fetch(playerEndpoint + "/next?device_id=" + deviceID, {
+      method: "POST",
+      body:"",
+      headers: authHeader,
+    }).then((e) => {
+      if (e.status === 403) {
+        console.log("no premium")
+      } else {
+        console.log("playing next track")
+        dispatch({ type: PLAYBACK_ON, isPlaying: true, paused: false})
       }
     });
   };

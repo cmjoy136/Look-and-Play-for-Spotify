@@ -7,11 +7,11 @@ import Navigation from "../Components/Navigation/Navigation";
 import Playbar from "../Components/Playback/Playbar";
 
 const Homepage = (props) => {
+
   const {
     isValidSession,
     history,
     playTrack,
-    pauseTrack,
     albums,
     artists,
     playlists,

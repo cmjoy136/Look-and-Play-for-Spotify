@@ -12,7 +12,7 @@ const AlbumList = (props) => {
               return (
                   <Card
                   key={index}
-                  imgSrc={album.images[1].url}
+                  imgSrc={album.images.length > 0 ? album.images[1].url : null}
                   name={album.name}
                   spotifyURI={album.uri}
                   releaseDate={album.release_date.slice(0, 4)}

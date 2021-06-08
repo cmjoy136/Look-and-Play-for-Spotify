@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import _ from "lodash";
 import { Redirect } from "react-router-dom";
 import AlbumList from "../DataLists/AlbumList";
@@ -7,7 +7,7 @@ import TrackList from "../DataLists/TrackList";
 
 const SearchResults = (props) => {
   const { isValidSession, results} = props;
-  const { albums, artists, playlists, tracks } = results;
+  const { albums, artists, tracks } = results;
 
   if (!isValidSession) {
     <Redirect

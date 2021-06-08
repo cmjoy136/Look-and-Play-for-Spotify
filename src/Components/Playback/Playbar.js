@@ -1,20 +1,22 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { FiPlay } from "react-icons/fi";
+import { FiPlay, FiPause } from "react-icons/fi";
 import {
   playTrack,
   resumeTrack,
   pauseTrack,
   getCurrentPlaybackInfo,
 } from "../../Actions/PlayerActions";
+import albumArt from "../../Assets/album-art.png";
 import { getDeviceID } from "../../Actions/AuthActions";
-import { getAccessToken } from "../../Utility/functions";
+import { getAccessToken} from "../../Utility/functions";
+import MusicControlButton from "./MusicControlButton";
+import ProgressBar from "./ProgressBar";
 
 class Playbar extends Component {
   state = {
     pausedMS: "0",
   };
-
   playerCheckInterval = null;
 
   componentDidMount() {
@@ -70,48 +72,55 @@ class Playbar extends Component {
     });
   }
 
-  handlePlay = (deviceID) => {
-    this.props.resumeTrack(deviceID);
-    this.statusInterval = setInterval(
-      () => this.props.getCurrentPlaybackInfo(),
-      1000
-    );
-  };
-
-  handlePause = () => {
-    this.props.pauseTrack();
-    clearInterval(this.statusInterval)
+  checkPlayback = () => {
+    if (!this.props.playback) {
+      return false;
+    } else {
+      return true;
+    }
   };
 
   render() {
     return (
       <div className="playbar">
         <div className="song-info">
-          <img alt="nothing here yet" />
+          <img
+            className="album-art"
+            alt="nothing here yet"
+            src={
+              this.checkPlayback()
+                ? this.props.playback.item.album.images[1].url
+                : albumArt
+            }
+          />
           <div className="song-title-artist">
-            <h4>Title</h4>
-            <h4>Artist</h4>
+            <h4>
+              {this.checkPlayback() ? this.props.playback.item.name : "Title"}
+            </h4>
+            <h4>
+              {this.checkPlayback()
+                ? this.props.playback.item.artists[0].name
+                : "Name"}
+            </h4>
           </div>
         </div>
-        <div className="playbar-controls"></div>
-        <div className="shuffle"> Shuffle</div>
-        <div className="previous">Last</div>
-        {!this.props.isPlaying ? (
-          <button
-            className="play"
-            onClick={() => this.handlePlay(this.props.deviceID)}
-          >
-            <FiPlay />
-          </button>
-        ) : (
-          <button className="pause" onClick={() => this.handlePause()}>
-            Pause
-          </button>
-        )}
+        <div className="playbar-controls">
+          <div className="playbar-buttons">
+            <div className="shuffle"> Shuffle</div>
+            <div className="previous">Last</div>
+            {!this.props.isPlaying ? (
+              <MusicControlButton action="resume" innerContent={<FiPlay />} />
+            ) : (
+              <MusicControlButton action="pause" innerContent={<FiPause />} />
+            )}
 
-        <div className="next">Next</div>
-        <div className="repeat">repeat</div>
-        <div className="volume">volume Slider</div>
+            <MusicControlButton action="next" innerContent="Next"/>
+            <div className="repeat">Repeat</div>
+          </div>
+          <ProgressBar progress={this.props.playback !== null ? this.props.playback.progress_ms : null}
+           duration={this.props.playback !== null ? this.props.playback.item.duration_ms : null}/>
+        </div>
+        <div className="volume">{this.props.playback !== null ? `Volume: ${this.props.playback.device.volume_percent}` : "Volume : 0"}</div>
       </div>
     );
   }
@@ -121,8 +130,7 @@ const mapStateToProps = (state) => {
     deviceID: state.auth.deviceID,
     isPlaying: state.player.isPlaying,
     paused: state.player.paused,
-    deviceID: state.auth.deviceID,
-    currentPlaying: state.player.currentPlaying,
+    playback: state.player.playback,
   };
 };
 

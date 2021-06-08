@@ -1,10 +1,9 @@
-import React, { useState } from "react";
-import {msToDuration} from "../../Utility/functions";
+import React from "react";
+import {timeParser} from "../../Utility/functions";
 import Card from "./Card";
 
 const TrackList = (props) => {
   const { tracks} = props
-  const [isSong, setIsSong] = useState(true);
   return (
     <>
       <h2>Songs</h2>
@@ -13,12 +12,12 @@ const TrackList = (props) => {
           {tracks.items.map((track, index) => {
             return (
               <Card
-                isSong={isSong}
+                isSong={true}
                 key={index}
-                imgSrc={track.album.images[2].url}
+                imgSrc={track.album.images.length > 0 ? track.album.images[1].url : null}
                 name={track.name}
                 artist={track.artists[0].name}
-                time={msToDuration(track.duration_ms)}
+                time={timeParser(track.duration_ms)}
                 spotifyURI={track.uri}
               />
             );

@@ -14,7 +14,11 @@ const LoginPage = (props) => {
           <img src={spotifyLogo} alt="Spotify Official Logo"/>
         </div>
           <button type='submit' onClick={props.handleLogin}>Login</button>
-          {/* DIV EXPLAINING APP AND FUNCTIONALITY */}
+          <div className="explanation">
+            <p>
+              This is a proof of concept project utilizing React, Redux, and React/Redux hooks.
+            </p>
+          </div>
       </div>
     </div>
   );

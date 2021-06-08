@@ -1,6 +1,7 @@
 import  React  from 'react'
 import Card  from "./Card"
 
+
 const ArtistList =(props) => {
     const {artists} = props
     return(
@@ -12,7 +13,7 @@ const ArtistList =(props) => {
                     return(
                         <Card
                         key={index}
-                        imgSrc={artist.images[1].url}
+                        imgSrc={artist.images.length > 0 ? artist.images[1].url : null}
                         name={artist.name}
                         spotifyURI={artist.uri}
 

@@ -7,6 +7,7 @@ body {
   background-color: #0d0c0a;
   color: white;
   font-family: "Poppins", sans-serif;
+  margin-bottom: 70px;
 }
 
 .project-logo {
@@ -74,7 +75,19 @@ input:focus {
     grid-column: 1/-1;
 }
 
+.artists-results{
+  grid-column: 1/-1;
+}
+
+
 .albums {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--mincolwidth), 1fr));
+  gap: 15px;
+  grid-column: 1/-1;
+}
+
+.artists{
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(var(--mincolwidth), 1fr));
   gap: 15px;
@@ -163,15 +176,54 @@ input:focus {
 .playbar{
     position: fixed;
     display: flex;
-    justify-content: space-evenly;
-    bottom: 0;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    bottom: 0px;
     width: 100%;
-    height: 70px;
+    height: 110px;
     background-color: #0d0c0a;
     border-top: 3px solid white;
     padding: 10px;
 }
 .song-info{
+  grid-column: 1 / 2;
   display: flex;
+  height: 100%;
+  justify-content: flex-start;
   align-items: center;
 }
+
+.album-art {
+  height: 64px;
+  margin-right: 20px;
+}
+
+.playbar-controls{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 50%;
+  width: 50%;
+}
+
+.playbar-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  flex-flow: nowrap;
+}
+
+.progress-wrapper{
+  display: flex;
+  width:100%;
+}
+
+.progress-bar{
+  height: 20px;
+  width: 100%;
+  background-color: gray;
+  border-radius: 10px;
+  margin: 15px;
+}
+

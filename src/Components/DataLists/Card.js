@@ -1,29 +1,21 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { FiPlay } from "react-icons/fi";
-import { playTrack, getCurrentPlaybackInfo } from "../../Actions/PlayerActions";
+import MusicControlButton from '../Playback/MusicControlButton'
+import albumArt from "../../Assets/album-art.png"
 
 const Card = (props) => {
   const { index, imgSrc, name, releaseDate, artist, time, spotifyURI } = props;
-  const deviceID = useSelector((state) => state.auth.deviceID);
-  const dispatch = useDispatch();
-
-
-
-  const handleClick = async (uri, deviceID) => {
-    dispatch(playTrack(uri, deviceID));
-  };
 
   return (
     <div key={index} className={props.isSong ? "song-card" : "card"}>
       <div className="card-image">
-        <img src={imgSrc} alt="album or song cover" />
-        <button
-          className="card-button"
-          onClick={() => handleClick(spotifyURI, deviceID)}
-        >
-          <FiPlay />
-        </button>
+        <img src={imgSrc === null ? albumArt : imgSrc} alt="album or song cover" />
+        <MusicControlButton
+          class="card-button"
+          action='play'
+          uri={spotifyURI}
+          innerContent={<FiPlay/>}
+        />
       </div>
       <div className="card-body">
         <div className="card-title">{name}</div>

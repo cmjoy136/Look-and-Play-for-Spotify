@@ -13,6 +13,7 @@ const SearchBar = (props) => {
         props.handleSearch(searchTerm)
     } else {
         setErrorMsg('Search for an Artist, Song, or Album!')
+        console.log(errorMsg)
     }
   }
 

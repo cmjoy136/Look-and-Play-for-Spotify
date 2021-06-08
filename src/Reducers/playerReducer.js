@@ -3,7 +3,7 @@ import { GET_TRACK_INFO, PAUSE_TRACK, PLAYBACK_ON } from "../Actions/ActionTypes
 const initialState = {
     isPlaying: false,
     paused: true,
-    currentPlaying: null,
+    playback: null,
 }
 
 const playerReducer = (state = initialState, action) => {
@@ -23,7 +23,7 @@ const playerReducer = (state = initialState, action) => {
     case GET_TRACK_INFO:
         return{
             ...state,
-            currentPlaying: action.payload
+            playback: action.payload
         }
 
     default:
