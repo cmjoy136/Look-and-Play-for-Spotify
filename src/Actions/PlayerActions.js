@@ -1,5 +1,5 @@
 import { PLAYBACK_ON, PAUSE_TRACK, GET_TRACK_INFO } from "./ActionTypes";
-import { uriParser, authHeader } from "../Utility/functions";
+import { uriParser, setAuthHeader } from "../Utility/functions";
 export const playerEndpoint = "https://api.spotify.com/v1/me/player";
 export const playEndpoint = playerEndpoint + "/play?";
 export const pauseEndpoint = playerEndpoint + "/pause";
@@ -11,7 +11,7 @@ export const getCurrentPlaybackInfo = () => {
     try {
       fetch(currentPlayingEndpoint, {
         method: "GET",
-        headers: authHeader,
+        headers: setAuthHeader(),
       })
         .then((res) => {
           if (res.status === 200) {
@@ -36,7 +36,7 @@ export const playTrack = (spotify_URI, deviceID) => {
       fetch(playEndpoint + "device_id=" + deviceID, {
         method: "PUT",
         body: JSON.stringify(uriParser(spotify_URI)),
-        headers: authHeader,
+        headers: setAuthHeader(),
       }).then((e) => {
         if (e.status === 403) {
           console.log("no premium");
@@ -55,7 +55,7 @@ export const resumeTrack = (deviceID) => {
     fetch(playEndpoint + "device_id=" + deviceID, {
       method: "PUT",
       body: "",
-      headers: authHeader,
+      headers: setAuthHeader(),
     }).then((e) => {
       if (e.status === 403) {
         console.log("no premium");
@@ -70,7 +70,7 @@ export const pauseTrack = () => {
   return async (dispatch) => {
     fetch(playerEndpoint + "/pause", {
       method: "PUT",
-      headers: authHeader,
+      headers: setAuthHeader(),
     }).then((e) => {
       if (e.status === 403) {
         console.log("no premium");
@@ -86,7 +86,7 @@ export const nextTrack = (deviceID) => {
     fetch(playerEndpoint + "/next?device_id=" + deviceID, {
       method: "POST",
       body: "",
-      headers: authHeader,
+      headers: setAuthHeader(),
     }).then((e) => {
       if (e.status === 403) {
         console.log("no premium");
@@ -102,7 +102,7 @@ export const prevTrack = (deviceID) => {
     fetch(playerEndpoint + "/next?device_id=" + deviceID, {
       method:  "POST",
       body: "",
-      headers: authHeader,
+      headers: setAuthHeader(),
     }).then((e) => {
       if (e.status===403){
         console.log("no premium")

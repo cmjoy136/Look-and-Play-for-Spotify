@@ -19,12 +19,21 @@ export const getAccessToken = () => {
   }
 };
 
-export const authHeader = {
-  Authorization: `Bearer ${getAccessToken()}`,
-  "Content-Type": "application/json",
+export const setAuthHeader = () => {
+  try {
+    const params = JSON.parse(localStorage.getItem("params"));
+    if (params) {
+      return {
+        "Authorization": `Bearer ${getAccessToken()}`,
+        "Content-Type": "application/json",
+      };
+    }
+  } catch(err) {
+    console.log("error", err)
+  }
 };
 
-export const setAuthHeader = () => {
+export const setAxiosHeader = () => {
   try {
     const params = JSON.parse(localStorage.getItem("params"));
     if (params) {
@@ -38,7 +47,7 @@ export const setAuthHeader = () => {
 };
 
 export const get = async (url, params) => {
-  setAuthHeader();
+  setAxiosHeader();
   const result = await axios.get(url, params);
   return result.data;
 };
