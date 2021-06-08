@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { FiPlay, FiPause } from "react-icons/fi";
+import { FiPlay, FiPause, FiRewind, FiFastForward, FiShuffle, FiRepeat } from "react-icons/fi";
 import {
   playTrack,
   resumeTrack,
@@ -8,8 +8,8 @@ import {
   getCurrentPlaybackInfo,
 } from "../../Actions/PlayerActions";
 import albumArt from "../../Assets/album-art.png";
+import { getAccessToken } from "../../Utility/functions";
 import { getDeviceID } from "../../Actions/AuthActions";
-import { getAccessToken} from "../../Utility/functions";
 import MusicControlButton from "./MusicControlButton";
 import ProgressBar from "./ProgressBar";
 
@@ -83,44 +83,72 @@ class Playbar extends Component {
   render() {
     return (
       <div className="playbar">
-        <div className="song-info">
-          <img
-            className="album-art"
-            alt="nothing here yet"
-            src={
-              this.checkPlayback()
-                ? this.props.playback.item.album.images[1].url
-                : albumArt
-            }
-          />
-          <div className="song-title-artist">
-            <h4>
-              {this.checkPlayback() ? this.props.playback.item.name : "Title"}
-            </h4>
-            <h4>
-              {this.checkPlayback()
-                ? this.props.playback.item.artists[0].name
-                : "Name"}
-            </h4>
+        <div className="info-div">
+          <div className="song-info">
+            <div className="song-art">
+              <img
+                className="album-art"
+                alt="nothing here yet"
+                src={
+                  this.checkPlayback()
+                    ? this.props.playback.item.album.images[1].url
+                    : albumArt
+                }
+              />
+            </div>
+            <div className="song-text">
+              <div className="song-title">
+                <span>
+                  {this.checkPlayback()
+                    ? this.props.playback.item.name
+                    : "Title"}
+                </span>
+              </div>
+              <div className="song-artist">
+                <span>
+                  {this.checkPlayback()
+                    ? this.props.playback.item.artists[0].name
+                    : "Name"}
+                </span>
+              </div>
+            </div>
           </div>
         </div>
-        <div className="playbar-controls">
-          <div className="playbar-buttons">
-            <div className="shuffle"> Shuffle</div>
-            <div className="previous">Last</div>
-            {!this.props.isPlaying ? (
-              <MusicControlButton action="resume" innerContent={<FiPlay />} />
-            ) : (
-              <MusicControlButton action="pause" innerContent={<FiPause />} />
-            )}
+        <div className="controls-div">
+          <div className="playbar-controls">
+            <div className="playbar-buttons">
+              <div className="shuffle"><FiShuffle/></div>
+              <MusicControlButton action="prev" innerContent={<FiRewind/>}/>
+              {!this.props.isPlaying ? (
+                <MusicControlButton action="resume" innerContent={<FiPlay />} />
+              ) : (
+                <MusicControlButton action="pause" innerContent={<FiPause />} />
+              )}
 
-            <MusicControlButton action="next" innerContent="Next"/>
-            <div className="repeat">Repeat</div>
+              <MusicControlButton action="next" innerContent={<FiFastForward/>} />
+              <div className="repeat"><FiRepeat/></div>
+            </div>
+            <ProgressBar
+              progress={
+                this.props.playback !== null
+                  ? this.props.playback.progress_ms
+                  : null
+              }
+              duration={
+                this.props.playback !== null
+                  ? this.props.playback.item.duration_ms
+                  : null
+              }
+            />
           </div>
-          <ProgressBar progress={this.props.playback !== null ? this.props.playback.progress_ms : null}
-           duration={this.props.playback !== null ? this.props.playback.item.duration_ms : null}/>
         </div>
-        <div className="volume">{this.props.playback !== null ? `Volume: ${this.props.playback.device.volume_percent}` : "Volume : 0"}</div>
+        <div className="volume-div">
+          <div className="volume">
+            {this.props.playback !== null
+              ? `Volume: ${this.props.playback.device.volume_percent}`
+              : "Volume : 0"}
+          </div>
+        </div>
       </div>
     );
   }
@@ -128,6 +156,7 @@ class Playbar extends Component {
 const mapStateToProps = (state) => {
   return {
     deviceID: state.auth.deviceID,
+    accessToken: state.auth.token,
     isPlaying: state.player.isPlaying,
     paused: state.player.paused,
     playback: state.player.playback,

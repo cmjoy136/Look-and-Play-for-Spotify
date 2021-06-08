@@ -1,6 +1,5 @@
 import { PLAYBACK_ON, PAUSE_TRACK, GET_TRACK_INFO } from "./ActionTypes";
-import { uriParser } from "../Utility/functions";
-import { authHeader } from "../Utility/constants";
+import { uriParser, authHeader } from "../Utility/functions";
 export const playerEndpoint = "https://api.spotify.com/v1/me/player";
 export const playEndpoint = playerEndpoint + "/play?";
 export const pauseEndpoint = playerEndpoint + "/pause";
@@ -20,7 +19,6 @@ export const getCurrentPlaybackInfo = () => {
           }
         })
         .then((data) => {
-          console.log(data);
           return dispatch({
             type: GET_TRACK_INFO,
             payload: data,
@@ -43,7 +41,6 @@ export const playTrack = (spotify_URI, deviceID) => {
         if (e.status === 403) {
           console.log("no premium");
         } else {
-          console.log("now playing");
           dispatch({ type: PLAYBACK_ON, isPlaying: true, paused: false });
         }
       });
@@ -63,7 +60,6 @@ export const resumeTrack = (deviceID) => {
       if (e.status === 403) {
         console.log("no premium");
       } else {
-        console.log("resuming song");
         dispatch({ type: PLAYBACK_ON, isPlaying: true, paused: false });
       }
     });
@@ -79,7 +75,6 @@ export const pauseTrack = () => {
       if (e.status === 403) {
         console.log("no premium");
       } else {
-        console.log("pausing");
         dispatch({ type: PAUSE_TRACK, isPlaying: false, paused: true });
       }
     });
@@ -90,15 +85,30 @@ export const nextTrack = (deviceID) => {
   return async (dispatch) => {
     fetch(playerEndpoint + "/next?device_id=" + deviceID, {
       method: "POST",
-      body:"",
+      body: "",
       headers: authHeader,
     }).then((e) => {
       if (e.status === 403) {
-        console.log("no premium")
+        console.log("no premium");
       } else {
-        console.log("playing next track")
-        dispatch({ type: PLAYBACK_ON, isPlaying: true, paused: false})
+        dispatch({ type: PLAYBACK_ON, isPlaying: true, paused: false });
       }
     });
   };
 };
+
+export const prevTrack = (deviceID) => {
+  return async (dispatch) => {
+    fetch(playerEndpoint + "/next?device_id=" + deviceID, {
+      method:  "POST",
+      body: "",
+      headers: authHeader,
+    }).then((e) => {
+      if (e.status===403){
+        console.log("no premium")
+      } else {
+        dispatch({ type: PLAYBACK_ON, isPlaying: true, paused: false})
+      }
+    })
+  }
+}

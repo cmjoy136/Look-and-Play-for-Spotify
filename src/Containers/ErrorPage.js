@@ -1,14 +1,14 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import Navigation from '../Components/Navigation/Navigation'
+import React from "react";
+import { Link } from "react-router-dom";
+import Navigation from "../Components/Navigation/Navigation";
 
 const ErrorPage = () => {
-    return(
-        <div>
-            <Navigation/>
-            Page Not Found. Return to <Link to='/home'>Home</Link>
-        </div>
-    )
-}
+  return (
+    <div>
+      <Navigation />
+      Page Not Found. Return to <Link to="/home">Home</Link>
+    </div>
+  );
+};
 
-export default ErrorPage
+export default ErrorPage;

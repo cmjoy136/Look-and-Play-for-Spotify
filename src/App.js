@@ -2,24 +2,19 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import { getDeviceID } from "./Actions/AuthActions";
-import { getAccessToken } from "./Utility/functions";
 import ErrorPage from "./Containers/ErrorPage";
 import Homepage from "./Containers/Homepage";
 import LoginPage from "./Containers/LoginPage";
 import RedirectPage from "./Containers/RedirectPage";
 
-require('dotenv').config()
 class App extends Component {
-  scopes =
-    "streaming user-read-email user-read-private user-read-playback-state user-modify-playback-state user-read-currently-playing";
-
   componentDidMount() {
     let expireTime;
     let token;
     try {
       if(localStorage.getItem('params') !== null){
         expireTime = JSON.parse(localStorage.getItem("expireTime"));
-        token = getAccessToken();
+
       }
     } catch (err) {
       console.log(err);
@@ -39,18 +34,6 @@ class App extends Component {
     return validSession;
   };
 
- 
-
-  handleLogin = () => {
-    window.location = `${
-      process.env.REACT_APP_SPOTIFY_AUTHORIZE_URL
-    }?client_id=${process.env.REACT_APP_SPOTIFY_CLIENT_ID}&redirect_uri=${
-      process.env.REACT_APP_SPOTIFY_REDIRECT_URL
-    }&response_type=token&show_dialog=true&scope=${encodeURIComponent(
-      this.scopes
-    )}`;
-    console.log(window.location);
-  };
 
   render() {
     return (
@@ -60,7 +43,7 @@ class App extends Component {
             path="/"
             exact={true}
             render={(props) => (
-              <LoginPage handleLogin={this.handleLogin} {...props} />
+              <LoginPage  {...props} />
             )}
           />
           <Route
@@ -79,8 +62,6 @@ class App extends Component {
               <Homepage
                 {...props}
                 isValidSession={this.isValidSession}
-                playTrack={this.playTrack}
-                pauseTrack={this.pauseTrack}
                 playbackInfo={this.getCurrentPlaybackInfo}
               />
             )}

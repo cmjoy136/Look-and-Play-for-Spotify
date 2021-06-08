@@ -1,12 +1,14 @@
-import React from "react";
-import { connect } from "react-redux";
+import React, { useEffect } from "react";
+import { connect, useDispatch } from "react-redux";
 import SearchForm from "../Components/Search/SearchForm";
 import SearchResults from "../Components/Search/SearchResults";
 import { getSearchResult } from "../Actions/SearchActions";
 import Navigation from "../Components/Navigation/Navigation";
 import Playbar from "../Components/Playback/Playbar";
+import { getAccessToken } from "../Actions/AuthActions";
 
 const Homepage = (props) => {
+  const dispatch = useDispatch();
 
   const {
     isValidSession,
@@ -18,6 +20,10 @@ const Homepage = (props) => {
     tracks,
   } = props;
   const results = { albums, artists, playlists, tracks };
+
+  useEffect(() => {
+    dispatch(getAccessToken(localStorage.getItem("params").access_token));
+  });
 
   const handleSearch = (searchTerm) => {
     if (isValidSession()) {
@@ -43,8 +49,6 @@ const Homepage = (props) => {
       }
     }
   };
-
-
 
   return (
     <div className="homepage">

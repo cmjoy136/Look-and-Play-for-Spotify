@@ -19,6 +19,11 @@ export const getAccessToken = () => {
   }
 };
 
+export const authHeader = {
+  Authorization: `Bearer ${getAccessToken()}`,
+  "Content-Type": "application/json",
+};
+
 export const setAuthHeader = () => {
   try {
     const params = JSON.parse(localStorage.getItem("params"));
@@ -37,7 +42,6 @@ export const get = async (url, params) => {
   const result = await axios.get(url, params);
   return result.data;
 };
-
 
 //required due to spotify track object using milliseconds
 //for song duration

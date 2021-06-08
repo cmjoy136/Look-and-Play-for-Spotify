@@ -1,7 +1,8 @@
 :root {
-    --spacing: 24px;
-    --mincolwidth: 180px;
-  }
+  --spacing: 24px;
+  --mincolwidth: 180px;
+  --green: #03c04a;
+}
 
 body {
   background-color: #0d0c0a;
@@ -11,12 +12,12 @@ body {
 }
 
 .project-logo {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 .project-logo img {
-    max-width: 250px;
-    max-height: 250px;
+  max-width: 250px;
+  max-height: 250px;
 }
 
 button {
@@ -71,14 +72,13 @@ input:focus {
   grid-column: 1/-3;
 }
 
-.albums-results{
-    grid-column: 1/-1;
-}
-
-.artists-results{
+.albums-results {
   grid-column: 1/-1;
 }
 
+.artists-results {
+  grid-column: 1/-1;
+}
 
 .albums {
   display: grid;
@@ -87,7 +87,7 @@ input:focus {
   grid-column: 1/-1;
 }
 
-.artists{
+.artists {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(var(--mincolwidth), 1fr));
   gap: 15px;
@@ -121,26 +121,27 @@ input:focus {
 }
 
 .song-card:hover {
-    background-color: #a9a9a9;
+  background-color: #a9a9a9;
 }
 
 .song-card .card-body {
   display: grid;
-  grid-template: "title title"
-                 "artist" /auto 1fr;
+  grid-template:
+    "title title"
+    "artist" / auto 1fr;
 }
 
 .song-card .card-title {
-    grid-area: "title";
+  grid-area: "title";
 }
 
 .song-card .card-artist {
-    grid-area: "artist";
+  grid-area: "artist";
 }
 
 .song-card .card-footer {
-    grid-column: last;
-    justify-content: end;
+  grid-column: last;
+  justify-content: end;
 }
 .song-card img {
   grid-area: "image";
@@ -150,9 +151,9 @@ input:focus {
 }
 .card-image {
   position: relative;
-  border:0;
-  margin:0;
-  padding:0;
+  border: 0;
+  margin: 0;
+  padding: 0;
   width: 100%;
   height: auto;
 }
@@ -165,33 +166,63 @@ input:focus {
   left: 0;
   right: 0;
   opacity: 0;
-  transition: .3s ease;
+  transition: 0.3s ease;
 }
 
-.card-button:hover{
- opacity: 1;
+.card-button:hover {
+  opacity: 1;
 }
 
-
-.playbar{
-    position: fixed;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    box-sizing: border-box;
-    bottom: 0px;
-    width: 100%;
-    height: 110px;
-    background-color: #0d0c0a;
-    border-top: 3px solid white;
-    padding: 10px;
+.playbar {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  bottom: 0px;
+  width: 100%;
+  height: 110px;
+  background-color: #0d0c0a;
+  border-top: 3px solid white;
+  padding: 10px;
 }
-.song-info{
-  grid-column: 1 / 2;
+.info-div{
+  display: flex;
+  justify-content: flex-start;
+  width: 30%;
+}
+.controls-div {
+  width: 40%;
+}
+.volume-div{
+  display: flex;
+  justify-content: flex-end;
+  width: 30%;
+}
+
+.song-info {
+  position: relative;
+  box-sizing: border-box;
   display: flex;
   height: 100%;
-  justify-content: flex-start;
+  text-transform: none;
+  justify-content: center;
   align-items: center;
+}
+
+.song-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.song-title{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 14px;
+}
+.song-artist{
+  font-size: 12px;
 }
 
 .album-art {
@@ -199,12 +230,12 @@ input:focus {
   margin-right: 20px;
 }
 
-.playbar-controls{
+.playbar-controls {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 50%;
-  width: 50%;
+  height: 100%;
+  width: 100%;
 }
 
 .playbar-buttons {
@@ -213,17 +244,30 @@ input:focus {
   justify-content: space-evenly;
   flex-flow: nowrap;
 }
-
-.progress-wrapper{
-  display: flex;
-  width:100%;
+.playbar-buttons button{
+  background: none;
+  border: none;
+  fill: var(--green);
 }
 
-.progress-bar{
-  height: 20px;
+.playbar-buttons button:hover{
+  fill: var(--green);
+}
+
+.progress-wrapper {
+  display: flex;
   width: 100%;
+}
+
+.progress-bar {
+  height: 15px;
+  width: 90%;
   background-color: gray;
   border-radius: 10px;
   margin: 15px;
+}
+
+.current-progress {
+  background-color: var(--green);
 }
 

@@ -1,5 +1,6 @@
 import {
   GET_DEVICEID,
+  GET_PARAMS,
   GET_TOKEN,
   GET_EXPIRE_TIME,
   LOGIN,
@@ -17,6 +18,11 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         deviceID: action.deviceID,
+      };
+    case GET_PARAMS:
+      return {
+        ...state,
+        params: action.params,
       };
     case GET_TOKEN:
       return {

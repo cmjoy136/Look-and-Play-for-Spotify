@@ -1,9 +1,6 @@
 import React from "react";
 
 const Navigation = (props) => {
-  //Add Buttons for navigation
-  // invisble background
-  // highlight hover
 
   return (
     <div className="navigation">

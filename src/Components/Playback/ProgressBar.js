@@ -14,12 +14,12 @@ const ProgressBar = (props) => {
   const progressStyles = {
     height: "100%",
     width: `${currProgress !== 0 ? Math.floor((currProgress/songDuration)*100) : 0}%`,
-    backgroundColor: 'red',
     borderRadius: "inherit",
     textAlign: "right",
   };
 
   const timeStyles = {
+    minWidth: 40,
     padding: 5,
     color: "white",
   };

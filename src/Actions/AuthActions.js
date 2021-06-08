@@ -1,16 +1,25 @@
-import { GET_DEVICEID } from "./ActionTypes";
-import { scopes } from "../Utility/constants";
-// Store access token with actions
+import { GET_DEVICEID, GET_PARAMS, GET_TOKEN, LOGIN } from "./ActionTypes";
 
-const tokenEndpoint = "https://accounts.spotify.com/api/token"
+const scopes =
+  "streaming user-read-email user-read-private user-read-playback-state user-modify-playback-state user-read-currently-playing";
 
 export const handleLogin = () => {
-  window.location = `${process.env.REACT_APP_SPOTIFY_AUTHORIZE_URL}?client_id=${
-    process.env.REACT_APP_SPOTIFY_CLIENT_ID
-  }&redirect_uri=${
-    process.env.REACT_APP_SPOTIFY_REDIRECT_URL
-  }&response_type=token&show_dialog=true&scope=${encodeURIComponent(scopes)}`;
-  console.log(window.location);
+  return async (dispatch) => {
+    try {
+      window.location = `${
+        process.env.REACT_APP_SPOTIFY_AUTHORIZE_URL
+      }?client_id=${process.env.REACT_APP_SPOTIFY_CLIENT_ID}&redirect_uri=${
+        process.env.REACT_APP_SPOTIFY_REDIRECT_URL
+      }&response_type=token&show_dialog=true&scope=${encodeURIComponent(
+        scopes
+      )}`;
+      dispatch({
+        type: LOGIN,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
 };
 
 export const getDeviceID = (deviceID) => {
@@ -26,32 +35,28 @@ export const getDeviceID = (deviceID) => {
   };
 };
 
-// export const getAccessToken = () => {
-//   return async (dispatch) => {
-//     try {
-//       fetch(tokenEndpoint, {
-//         method: "POST",
-//         headers: {
-//           'Authorization': 'Basic '
-//         }
-//       })
-//     }
-//   }
-// }
+export const getParams = (params) => {
+  return async (dispatch) => {
+    try {
+      dispatch({
+        type: GET_PARAMS,
+        params,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
 
-// export const nextTrack = (deviceID) => {
-//   return async (dispatch) => {
-//     fetch(playerEndpoint + "/next?device_id=" + deviceID, {
-//       method: "POST",
-//       body:"",
-//       headers: authHeader,
-//     }).then((e) => {
-//       if (e.status === 403) {
-//         console.log("no premium")
-//       } else {
-//         console.log("playing next track")
-//         dispatch({ type: PLAYBACK_ON, isPlaying: true, paused: false})
-//       }
-//     });
-//   };
-// };
+export const getAccessToken = (token) => {
+  return async (dispatch) => {
+    try {
+      dispatch({
+        type: GET_TOKEN,
+        token,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};

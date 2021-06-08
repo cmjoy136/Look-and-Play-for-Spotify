@@ -5,6 +5,7 @@ import {
   resumeTrack,
   pauseTrack,
   nextTrack,
+  prevTrack,
   getCurrentPlaybackInfo,
 } from "../../Actions/PlayerActions";
 
@@ -27,6 +28,8 @@ class MusicControlButton extends Component {
       );
     } else if (action === "next") {
         this.props.nextTrack(this.props.deviceID)
+    } else if (action === "previous") {
+      this.props.prevTrack(this.props.deviceID)
     }
   };
 
@@ -52,6 +55,7 @@ const mapDispatchToProps = {
   resumeTrack,
   pauseTrack,
   nextTrack,
+  prevTrack,
   getCurrentPlaybackInfo,
 };
 

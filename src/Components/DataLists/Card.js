@@ -1,7 +1,7 @@
 import React from "react";
 import { FiPlay } from "react-icons/fi";
-import MusicControlButton from '../Playback/MusicControlButton'
-import albumArt from "../../Assets/album-art.png"
+import MusicControlButton from "../Playback/MusicControlButton";
+import albumArt from "../../Assets/album-art.png";
 
 const Card = (props) => {
   const { index, imgSrc, name, releaseDate, artist, time, spotifyURI } = props;
@@ -9,12 +9,15 @@ const Card = (props) => {
   return (
     <div key={index} className={props.isSong ? "song-card" : "card"}>
       <div className="card-image">
-        <img src={imgSrc === null ? albumArt : imgSrc} alt="album or song cover" />
+        <img
+          src={imgSrc === null ? albumArt : imgSrc}
+          alt="album or song cover"
+        />
         <MusicControlButton
           class="card-button"
-          action='play'
+          action="play"
           uri={spotifyURI}
-          innerContent={<FiPlay/>}
+          innerContent={<FiPlay />}
         />
       </div>
       <div className="card-body">
