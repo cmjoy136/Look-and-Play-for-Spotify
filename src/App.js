@@ -8,6 +8,7 @@ import Homepage from "./Containers/Homepage";
 import LoginPage from "./Containers/LoginPage";
 import RedirectPage from "./Containers/RedirectPage";
 
+require('dotenv').config()
 class App extends Component {
   scopes =
     "streaming user-read-email user-read-private user-read-playback-state user-modify-playback-state user-read-currently-playing";
