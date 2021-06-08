@@ -17,8 +17,10 @@ class App extends Component {
     let expireTime;
     let token;
     try {
-      expireTime = JSON.parse(localStorage.getItem("expireTime"));
-      token = getAccessToken();
+      if(localStorage.getItem('params') !== null){
+        expireTime = JSON.parse(localStorage.getItem("expireTime"));
+        token = getAccessToken();
+      }
     } catch (err) {
       console.log(err);
       expireTime = "0";

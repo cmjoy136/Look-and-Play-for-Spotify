@@ -38,7 +38,6 @@ export const get = async (url, params) => {
   return result.data;
 };
 
-//Removing axios post and put due to conflicts with spotify api
 
 //required due to spotify track object using milliseconds
 //for song duration
