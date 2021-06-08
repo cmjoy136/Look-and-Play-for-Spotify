@@ -20,7 +20,7 @@ const LoginPage = (props) => {
         <div className="explanation">
           <p>
             This is a proof of concept project utilizing React, Redux, and
-            React/Redux hooks.
+            the Spotify API. This app requires a Spotify Account, premium or free. Press the Login button to authorize the required Spotify scopes. Once logged in, you are able to search for tracks, albums, and artists using the search  bar. I have no affiliation with Spotify, I just enjoy music and using Spotify almost every day
           </p>
         </div>
       </div>
