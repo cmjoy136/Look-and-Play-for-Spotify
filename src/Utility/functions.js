@@ -13,8 +13,10 @@ export const getParamValues = (url) => {
 };
 
 export const getAccessToken = () => {
-  const params = JSON.parse(localStorage.getItem("params"));
-  return params.access_token;
+  if (typeof window !== "undefined") {
+    const params = JSON.parse(localStorage.getItem("params"));
+    return params.access_token;
+  }
 };
 
 export const setAuthHeader = () => {
@@ -41,11 +43,14 @@ export const get = async (url, params) => {
 //required due to spotify track object using milliseconds
 //for song duration
 export const timeParser = (millisec) => {
-  const sec = String(Math.floor((millisec/1000) % 60) || 0).padStart('2', '0')
-  const min = String(Math.floor((millisec/1000)/ 60) || 0).padStart('2', '0')
+  const sec = String(Math.floor((millisec / 1000) % 60) || 0).padStart(
+    "2",
+    "0"
+  );
+  const min = String(Math.floor(millisec / 1000 / 60) || 0).padStart("2", "0");
 
-  return `${min}:${sec}`
-}
+  return `${min}:${sec}`;
+};
 
 //URI for tracks  need to be in the uri property whereas albums, artists, and playlists go in the context_uri property
 export const uriParser = (uri) => {
