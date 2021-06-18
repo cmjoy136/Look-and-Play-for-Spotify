@@ -13,12 +13,14 @@ const Card = (props) => {
           src={imgSrc === null ? albumArt : imgSrc}
           alt="album or song cover"
         />
-        <MusicControlButton
-          class="card-button"
-          action="play"
-          uri={spotifyURI}
-          innerContent={<FiPlay />}
-        />
+        {releaseDate && (
+          <MusicControlButton
+            class="album-button"
+            action="play"
+            uri={spotifyURI}
+            innerContent={<FiPlay />}
+          />
+        )}
       </div>
       <div className="card-body">
         <div className="card-title">{name}</div>
@@ -28,6 +30,12 @@ const Card = (props) => {
       {time && (
         <div className="card-footer">
           <span>{time}</span>
+          <MusicControlButton
+            class="card-button"
+            action="play"
+            uri={spotifyURI}
+            innerContent={<FiPlay />}
+          />
         </div>
       )}
     </div>

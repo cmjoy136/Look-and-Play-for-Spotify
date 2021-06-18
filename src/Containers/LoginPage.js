@@ -3,7 +3,7 @@ import { connect, useDispatch } from "react-redux";
 import { handleLogin as login } from "../Actions/AuthActions";
 import spotifyLogo from "../Assets/Spotify_Logo_RGB_Green.png";
 
-const LoginPage = (props) => {
+const LoginPage = () => {
   const dispatch = useDispatch();
   return (
     <div>
