@@ -147,7 +147,7 @@ input:focus {
 
 .song-card > .card-footer {
   grid-column: last;
-  justify-content: end;
+  justify-content: flex-end;
   display: flex;
   justify-content: center;
   align-items: center;

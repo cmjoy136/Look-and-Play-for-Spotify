@@ -36,6 +36,7 @@ class MusicControlButton extends Component {
   render() {
     return (
       <button
+        disabled={this.props.disabled}
         className={this.props.class}
         onClick={() => this.handleClick(this.props.action, this.props.uri)}
       >

@@ -118,10 +118,14 @@ class Playbar extends Component {
           <div className="playbar-controls">
             <div className="playbar-buttons">
               <div className="shuffle"><FiShuffle/></div>
-              <MusicControlButton action="prev" innerContent={<FiRewind/>}/>
-              {!this.props.isPlaying ? (
-                <MusicControlButton action="resume" innerContent={<FiPlay />} />
-              ) : (
+              {this.props.playback=== null ?
+                <MusicControlButton action="prev" disabled={true} innerContent={<FiRewind/>}/>
+                :
+                <MusicControlButton action="prev" innerContent={<FiRewind/>}/>
+              }
+              { !this.props.isPlaying ? 
+                <MusicControlButton action="resume" disabled={this.props.playback===null} innerContent={<FiPlay />} />
+               : (
                 <MusicControlButton action="pause" innerContent={<FiPause />} />
               )}
 
